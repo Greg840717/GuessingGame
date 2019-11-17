@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GuessingGame</string>
+    <string name="hint">請輸入玩家姓名</string>
+    <string name="status">請輸入姓名來開始遊戲</string>
 </resources>
