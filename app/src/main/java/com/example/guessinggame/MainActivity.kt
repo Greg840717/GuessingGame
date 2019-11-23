@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     playerGuess = 2
                 }
-                winOrLose(playerGuess, computerGuess)
+                judgeWinner(playerGuess, computerGuess)
             }
         }
     }
@@ -68,58 +68,77 @@ class MainActivity : AppCompatActivity() {
         winner.setText("贏家")
         mine.setText("玩家出拳")
         computer.setText("電腦出拳")
+        scissors.isChecked = true
     }
 
-    fun winOrLose(a: Int, b: Int) {
-        player.setText("名子\n"+PlayerName.text.toString())
+    fun judgeWinner(a: Int, b: Int) {
+        var win = 0
         if (a == 0) {
             when (b) {
                 0 -> {
-                    winner.setText("贏家\n平手")
-                    computer.setText("電腦出拳\n剪刀")
+                    win = 2
                 }
                 1 -> {
-                    winner.setText("贏家\n電腦")
-                    computer.setText("電腦出拳\n石頭")
+                    win = 1
                 }
                 2 -> {
-                    winner.setText("贏家\n" + PlayerName.text.toString())
-                    computer.setText("電腦出拳\n布")
+                    win = 0
                 }
+
             }
-            mine.setText("玩家出拳\n剪刀")
         } else if (a == 1) {
             when (b) {
                 0 -> {
-                    winner.setText("贏家\n" + PlayerName.text.toString())
-                    computer.setText("電腦出拳\n剪刀")
+                    win = 0
                 }
                 1 -> {
-                    winner.setText("贏家\n平手")
-                    computer.setText("電腦出拳\n石頭")
+                    win = 2
                 }
                 2 -> {
-                    winner.setText("贏家\n電腦")
-                    computer.setText("電腦出拳\n布")
+                    win = 1
                 }
             }
-            mine.setText("玩家出拳\n石頭")
         } else {
             when (b) {
                 0 -> {
-                    winner.setText("贏家\n電腦")
-                    computer.setText("電腦出拳\n剪刀")
+                    win = 1
                 }
                 1 -> {
-                    winner.setText("贏家\n" + PlayerName.text.toString())
-                    computer.setText("電腦出拳\n石頭")
+                    win = 0
                 }
                 2 -> {
-                    winner.setText("贏家\n平手")
-                    computer.setText("電腦出拳\n布")
+                    win = 2
                 }
             }
-            mine.setText("玩家出拳\n布")
+        }
+        settingTextview(a, b, win)
+    }
+
+    fun settingTextview(plaYer: Int, comPuter: Int, winNer: Int) {
+        player.setText("名子\n" + PlayerName.text.toString())
+        when (plaYer) {
+            0 -> mine.setText("玩家出拳\n剪刀")
+            1 -> mine.setText("玩家出拳\n石頭")
+            2 -> mine.setText("玩家出拳\n布")
+        }
+        when (comPuter) {
+            0 -> computer.setText("電腦出拳\n剪刀")
+            1 -> computer.setText("電腦出拳\n石頭")
+            2 -> computer.setText("電腦出拳\n布")
+        }
+        when (winNer) {
+            0 -> {
+                status.setText("玩家勝利!")
+                winner.setText("贏家\n" + PlayerName.text.toString())
+            }
+            1 -> {
+                status.setText("電腦勝利!")
+                winner.setText("贏家\n電腦")
+            }
+            2 -> {
+                status.setText("平手")
+                winner.setText("贏家\n平手")
+            }
         }
     }
 
